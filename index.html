@@ -112,6 +112,47 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Preloader Styles */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #f1f5f9;
+            transition: opacity 0.5s ease-out;
+        }
+        html.dark #preloader {
+            background-color: #0f172a;
+        }
+        #preloader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #app-content {
+            transition: opacity 0.5s ease-in;
+        }
+        .preloader-svg {
+            width: 150px;
+            height: auto;
+        }
+        .preloader-svg .item {
+            opacity: 0;
+            animation: drop-in 2s infinite;
+        }
+        .preloader-svg .item-1 { animation-delay: 0s; }
+        .preloader-svg .item-2 { animation-delay: 0.5s; }
+        .preloader-svg .item-3 { animation-delay: 1s; }
+
+        @keyframes drop-in {
+            0% { transform: translateY(-50px); opacity: 0; }
+            20% { transform: translateY(0); opacity: 1; }
+            80% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(50px); opacity: 0; }
+        }
     </style>
     <script>
         tailwind.config = { darkMode: 'class' }
@@ -119,100 +160,131 @@
 </head>
 <body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300">
     
-    <div id="main-banner" class="banner rounded-b-3xl shadow-lg flex items-center justify-center relative">
-        <div id="banner-fade-overlay" class="absolute inset-0 bg-black opacity-0 rounded-b-3xl transition-opacity duration-1000 ease-in-out"></div>
-        <div class="absolute inset-0 bg-black opacity-40 rounded-b-3xl"></div>
-        <h1 id="banner-title" class="text-5xl md:text-6xl font-extrabold text-white z-10" style="text-shadow: 3px 3px 8px rgba(0,0,0,0.6);">Mercado Fácil</h1>
+    <div id="preloader">
+        <svg class="preloader-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <g class="bag" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M25,35 L20,85 H80 L75,35 Z" fill-opacity="0.1" />
+                <path d="M35,35 C35,15 65,15 65,35" />
+            </g>
+            <g class="items" fill="currentColor">
+                <circle class="item item-1" cx="40" cy="45" r="5" />
+                <rect class="item item-2" x="55" y="40" width="10" height="10" rx="2" />
+                <path class="item item-3" d="M45 60 L50 70 L55 60 Z" />
+            </g>
+        </svg>
+        <p id="preloader-text" class="mt-4 text-lg font-semibold text-slate-600 dark:text-slate-400">Cargando productos...</p>
     </div>
 
-    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
-        <header class="mb-4 text-center">
-            <h1 id="main-title" class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white"></h1>
-            <p id="main-subtitle" class="text-slate-600 dark:text-slate-400 mt-2"></p>
-        </header>
+    <div id="app-content" class="opacity-0">
+        <div id="main-banner" class="banner rounded-b-3xl shadow-lg flex items-center justify-center relative">
+            <div id="banner-fade-overlay" class="absolute inset-0 bg-black opacity-0 rounded-b-3xl transition-opacity duration-1000 ease-in-out"></div>
+            <div class="absolute inset-0 bg-black opacity-40 rounded-b-3xl"></div>
+            <h1 id="banner-title" class="text-5xl md:text-6xl font-extrabold text-white z-10" style="text-shadow: 3px 3px 8px rgba(0,0,0,0.6);">Mercado Fácil</h1>
+        </div>
 
-        <!-- Controles Globales -->
-        <div class="z-30 bg-slate-100/80 dark:bg-slate-900/80 backdrop-blur-sm py-4 mb-4">
-            <div class="flex flex-col md:flex-row justify-center items-center gap-4">
-                <div id="shop-switcher" class="flex gap-2 bg-white dark:bg-slate-800 p-2 rounded-xl shadow-md"></div>
-                <div class="relative w-full md:max-w-xs">
-                    <input type="search" id="search-input" class="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl p-2 pl-10 focus:ring-2 focus:ring-current-primary">
-                    <i class="ph ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+        <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+            <header class="mb-4 text-center">
+                <h1 id="main-title" class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white"></h1>
+                <p id="main-subtitle" class="text-slate-600 dark:text-slate-400 mt-2"></p>
+            </header>
+
+            <!-- Controles Globales -->
+            <div class="z-30 bg-slate-100/80 dark:bg-slate-900/80 backdrop-blur-sm py-4 mb-4">
+                <div class="flex flex-col md:flex-row justify-center items-center gap-4">
+                    <div id="shop-switcher" class="flex gap-2 bg-white dark:bg-slate-800 p-2 rounded-xl shadow-md"></div>
+                    <div class="relative w-full md:max-w-xs">
+                        <input type="search" id="search-input" class="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl p-2 pl-10 focus:ring-2 focus:ring-current-primary">
+                        <i class="ph ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    </div>
+                    <div class="flex items-center gap-4 bg-white dark:bg-slate-800 p-2 rounded-xl shadow-md">
+                        <select id="language-switcher" class="bg-slate-100 dark:bg-slate-700 border-none rounded-md p-1 font-semibold text-sm focus:ring-2 focus:ring-current-primary"></select>
+                        <select id="currency-switcher" class="bg-slate-100 dark:bg-slate-700 border-none rounded-md p-1 font-semibold text-sm focus:ring-2 focus:ring-current-primary"></select>
+                        <button id="dark-mode-toggle" class="p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-700">
+                            <i class="ph ph-sun text-xl text-yellow-500"></i>
+                            <i class="ph ph-moon hidden text-xl" style="color: var(--current-primary-light);"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="flex items-center gap-4 bg-white dark:bg-slate-800 p-2 rounded-xl shadow-md">
-                    <select id="language-switcher" class="bg-slate-100 dark:bg-slate-700 border-none rounded-md p-1 font-semibold text-sm focus:ring-2 focus:ring-current-primary"></select>
-                    <select id="currency-switcher" class="bg-slate-100 dark:bg-slate-700 border-none rounded-md p-1 font-semibold text-sm focus:ring-2 focus:ring-current-primary"></select>
-                    <button id="dark-mode-toggle" class="p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-700">
-                        <i class="ph ph-sun text-xl text-yellow-500"></i>
-                        <i class="ph ph-moon hidden text-xl" style="color: var(--current-primary-light);"></i>
-                    </button>
+                <div class="relative flex items-center justify-center w-full mt-4">
+                    <button id="scroll-left-btn" class="hidden md:flex absolute left-0 z-10 p-2 rounded-full bg-white/80 dark:bg-slate-800/80 shadow-md hover:bg-white dark:hover:bg-slate-700 transition-colors"><i class="ph ph-caret-left text-xl text-slate-600 dark:text-slate-300"></i></button>
+                    <div id="category-filters" class="flex gap-3 overflow-x-auto pb-2 px-4 w-full justify-start"></div>
+                    <button id="scroll-right-btn" class="hidden md:flex absolute right-0 z-10 p-2 rounded-full bg-white/80 dark:bg-slate-800/80 shadow-md hover:bg-white dark:hover:bg-slate-700 transition-colors"><i class="ph ph-caret-right text-xl text-slate-600 dark:text-slate-300"></i></button>
                 </div>
             </div>
-            <div class="relative flex items-center justify-center w-full mt-4">
-                <button id="scroll-left-btn" class="hidden md:flex absolute left-0 z-10 p-2 rounded-full bg-white/80 dark:bg-slate-800/80 shadow-md hover:bg-white dark:hover:bg-slate-700 transition-colors"><i class="ph ph-caret-left text-xl text-slate-600 dark:text-slate-300"></i></button>
-                <div id="category-filters" class="flex gap-3 overflow-x-auto pb-2 px-4 w-full justify-start"></div>
-                <button id="scroll-right-btn" class="hidden md:flex absolute right-0 z-10 p-2 rounded-full bg-white/80 dark:bg-slate-800/80 shadow-md hover:bg-white dark:hover:bg-slate-700 transition-colors"><i class="ph ph-caret-right text-xl text-slate-600 dark:text-slate-300"></i></button>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 lg:gap-8">
+                <div class="lg:col-span-2">
+                    <div class="bg-white dark:bg-slate-800 p-4 md:p-6 rounded-2xl shadow-lg">
+                        <h2 id="products-title" class="text-xl md:text-2xl font-semibold mb-6 flex items-center"></h2>
+                        <div id="product-list" class="grid grid-cols-2 md:grid-cols-3 gap-4 custom-scrollbar min-h-[50vh]"></div>
+                    </div>
+                </div>
+                <div class="hidden lg:block lg:col-span-1">
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg sticky top-28">
+                        <h2 id="quote-title-desktop" class="text-2xl font-semibold mb-6 flex items-center"></h2>
+                        <div id="cart-items-desktop" class="space-y-4 mb-6 min-h-[150px] max-h-[40vh] overflow-y-auto custom-scrollbar"></div>
+                        <div id="cart-totals-desktop"></div>
+                        <div id="cart-buttons-desktop" class="mt-6 space-y-3"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 lg:gap-8">
-            <div class="lg:col-span-2">
-                <div class="bg-white dark:bg-slate-800 p-4 md:p-6 rounded-2xl shadow-lg">
-                    <h2 id="products-title" class="text-xl md:text-2xl font-semibold mb-6 flex items-center"></h2>
-                    <div id="product-list" class="grid grid-cols-2 md:grid-cols-3 gap-4 custom-scrollbar min-h-[50vh]"></div>
+        <!-- Barra de Carrito Fija para Móviles -->
+        <div id="mobile-cart-bar" class="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 p-3 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] flex items-center justify-between">
+            <div>
+                <p id="mobile-total-label" class="text-sm text-slate-500 dark:text-slate-400">Total</p>
+                <p id="mobile-total-amount" class="font-bold text-xl text-slate-800 dark:text-slate-200">$0</p>
+            </div>
+            <button id="view-cart-btn" class="flex items-center gap-2 disabled:cursor-not-allowed">
+                <i id="mobile-cart-icon" class="ph ph-shopping-cart-simple text-xl"></i>
+                <span id="view-cart-label">Ver Carrito</span>
+            </button>
+        </div>
+
+        <!-- Modal de Carrito para Móviles -->
+        <div id="mobile-cart-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40">
+            <div id="modal-content" class="absolute bottom-0 left-0 right-0 bg-slate-100 dark:bg-slate-900 rounded-t-2xl p-4 max-h-[85vh] overflow-y-auto transition-transform duration-300 ease-in-out modal-enter custom-scrollbar">
+                <div class="flex justify-between items-center mb-4 pb-4 border-b border-slate-200 dark:border-slate-700">
+                    <h2 id="quote-title-mobile" class="text-2xl font-semibold flex items-center"></h2>
+                    <button id="close-modal-btn" class="text-slate-500 hover:text-slate-800 dark:hover:text-white"><i class="ph ph-x text-3xl"></i></button>
                 </div>
+                <div id="cart-items-mobile" class="space-y-4 mb-6"></div>
+                <div id="cart-totals-mobile" class="bg-white dark:bg-slate-800 p-4 rounded-xl"></div>
+                <div id="cart-buttons-mobile" class="mt-6 space-y-3"></div>
             </div>
-            <div class="hidden lg:block lg:col-span-1">
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg sticky top-28">
-                    <h2 id="quote-title-desktop" class="text-2xl font-semibold mb-6 flex items-center"></h2>
-                    <div id="cart-items-desktop" class="space-y-4 mb-6 min-h-[150px] max-h-[40vh] overflow-y-auto custom-scrollbar"></div>
-                    <div id="cart-totals-desktop"></div>
-                    <div id="cart-buttons-desktop" class="mt-6 space-y-3"></div>
+        </div>
+
+        <!-- Modal de Receta con IA -->
+        <div id="recipe-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4">
+            <div id="recipe-modal-content" class="bg-white dark:bg-slate-800 rounded-2xl p-6 max-w-2xl w-full max-h-[90vh] flex flex-col transition-transform duration-300 ease-in-out scale-95 opacity-0">
+                 <div class="flex justify-between items-center mb-4 pb-4 border-b border-slate-200 dark:border-slate-700">
+                    <h2 id="recipe-modal-title" class="text-2xl font-semibold flex items-center text-slate-800 dark:text-white"></h2>
+                    <button id="close-recipe-modal-btn" class="text-slate-500 hover:text-slate-800 dark:hover:text-white"><i class="ph ph-x text-3xl"></i></button>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Barra de Carrito Fija para Móviles -->
-    <div id="mobile-cart-bar" class="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 p-3 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] flex items-center justify-between">
-        <div>
-            <p id="mobile-total-label" class="text-sm text-slate-500 dark:text-slate-400">Total</p>
-            <p id="mobile-total-amount" class="font-bold text-xl text-slate-800 dark:text-slate-200">$0</p>
-        </div>
-        <button id="view-cart-btn" class="flex items-center gap-2 disabled:cursor-not-allowed">
-            <i id="mobile-cart-icon" class="ph ph-shopping-cart-simple text-xl"></i>
-            <span id="view-cart-label">Ver Carrito</span>
-        </button>
-    </div>
-
-    <!-- Modal de Carrito para Móviles -->
-    <div id="mobile-cart-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40">
-        <div id="modal-content" class="absolute bottom-0 left-0 right-0 bg-slate-100 dark:bg-slate-900 rounded-t-2xl p-4 max-h-[85vh] overflow-y-auto transition-transform duration-300 ease-in-out modal-enter custom-scrollbar">
-            <div class="flex justify-between items-center mb-4 pb-4 border-b border-slate-200 dark:border-slate-700">
-                <h2 id="quote-title-mobile" class="text-2xl font-semibold flex items-center"></h2>
-                <button id="close-modal-btn" class="text-slate-500 hover:text-slate-800 dark:hover:text-white"><i class="ph ph-x text-3xl"></i></button>
-            </div>
-            <div id="cart-items-mobile" class="space-y-4 mb-6"></div>
-            <div id="cart-totals-mobile" class="bg-white dark:bg-slate-800 p-4 rounded-xl"></div>
-            <div id="cart-buttons-mobile" class="mt-6 space-y-3"></div>
-        </div>
-    </div>
-
-    <!-- Modal de Receta con IA -->
-    <div id="recipe-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4">
-        <div id="recipe-modal-content" class="bg-white dark:bg-slate-800 rounded-2xl p-6 max-w-2xl w-full max-h-[90vh] flex flex-col transition-transform duration-300 ease-in-out scale-95 opacity-0">
-             <div class="flex justify-between items-center mb-4 pb-4 border-b border-slate-200 dark:border-slate-700">
-                <h2 id="recipe-modal-title" class="text-2xl font-semibold flex items-center text-slate-800 dark:text-white"></h2>
-                <button id="close-recipe-modal-btn" class="text-slate-500 hover:text-slate-800 dark:hover:text-white"><i class="ph ph-x text-3xl"></i></button>
-            </div>
-            <div id="recipe-modal-body" class="overflow-y-auto custom-scrollbar">
-                <!-- El contenido de la receta (o el spinner) se insertará aquí -->
+                <div id="recipe-modal-body" class="overflow-y-auto custom-scrollbar">
+                    <!-- El contenido de la receta (o el spinner) se insertará aquí -->
+                </div>
             </div>
         </div>
     </div>
 
 
     <script>
+        // --- PRELOADER LOGIC ---
+        window.onload = () => {
+            const preloader = document.getElementById('preloader');
+            const appContent = document.getElementById('app-content');
+            
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+                appContent.classList.remove('opacity-0');
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 500); // Match CSS transition duration
+            }, 500); // Minimum display time for preloader
+        };
+
         document.addEventListener('DOMContentLoaded', async () => {
             // --- 1. DATA AND CONFIGURATION ---
             const SHOPS_CONFIG = {
@@ -273,7 +345,7 @@
                         { id: 38, name: "Torta de Chocolate (Porción)", price: 8000, icon: "🍰", category: "bakery" },
                         { id: 39, name: "Arepas de Maíz (x5)", price: 4000, icon: "🫓", category: "bakery" },
                         { id: 40, name: "Agua Botella (600ml)", price: 2000, icon: "💧", category: "drinks" },
-                        { id: 41, name: "Coca-Cola (1.5L)", price: 4500, icon: "🥤", category: "drinks" },
+                        { id: 41, name: "Coca-Cola (1.5L)", price: 4500, icon: "�", category: "drinks" },
                         { id: 42, name: "Jugo de Naranja (1L)", price: 6000, icon: "🧃", category: "drinks" },
                         { id: 43, name: "Cerveza Nacional (x6)", price: 15000, icon: "🍺", category: "drinks" },
                         { id: 44, name: "Vino Tinto (750ml)", price: 35000, icon: "🍷", category: "drinks" },
@@ -962,3 +1034,4 @@
     </script>
 </body>
 </html>
+�

@@ -156,7 +156,7 @@
         </header>
 
         <!-- Controles Globales -->
-        <div class="sticky top-0 z-30 bg-slate-100/80 dark:bg-slate-900/80 backdrop-blur-sm py-4 mb-4">
+        <div class="z-30 bg-slate-100/80 dark:bg-slate-900/80 backdrop-blur-sm py-4 mb-4">
             <div class="flex flex-col md:flex-row justify-center items-center gap-4">
                 <!-- Selector de Tienda -->
                 <div id="shop-switcher" class="flex gap-2 bg-white dark:bg-slate-800 p-2 rounded-xl shadow-md">
@@ -259,7 +259,7 @@
                     ],
                     products: [
                         { id: 1, name: "Arroz Blanco (1kg)", price: 5500, icon: "🍚", category: "pantry" },
-                        { id: 2, name: "Leche Entera (1L)", price: 4200, icon: "🥛", category: "dairy" },
+                        { id: 2, name: "Leche Entera (1L)", price: 4200, icon: "�", category: "dairy" },
                         { id: 3, name: "Huevos (x30)", price: 18000, icon: "🥚", category: "dairy" },
                         { id: 4, name: "Café Colombiano (500g)", price: 22000, icon: "☕", category: "pantry" },
                         { id: 5, name: "Aceite Vegetal (1L)", price: 15500, icon: "🍾", category: "pantry" },
@@ -288,7 +288,7 @@
                         { id: 25, name: "Mantequilla (250g)", price: 7500, icon: "🧈", category: "dairy" },
                         { id: 26, name: "Queso Mozzarella (250g)", price: 9500, icon: "🧀", category: "dairy" },
                         { id: 27, name: "Leche Deslactosada (1L)", price: 4800, icon: "🥛", category: "dairy" },
-                        { id: 28, name: "Pasta Spaghetti (500g)", price: 4500, icon: "�", category: "pantry" },
+                        { id: 28, name: "Pasta Spaghetti (500g)", price: 4500, icon: "🍝", category: "pantry" },
                         { id: 29, name: "Lentejas (500g)", price: 4000, icon: "🫘", category: "pantry" },
                         { id: 30, name: "Frijol Cargamanto (500g)", price: 6500, icon: "🫘", category: "pantry" },
                         { id: 31, name: "Atún en Aceite", price: 5500, icon: "🥫", category: "pantry" },
@@ -1036,7 +1036,8 @@
                         handleCartAction('clear');
                     } else if (button.id === 'whatsapp-btn') {
                         const message = generateWhatsAppMessage();
-                        window.open(`https://api.whatsapp.com/send?text=${message}`, '_blank');
+                        const phoneNumber = '573006101221';
+                        window.open(`https://api.whatsapp.com/send?phone=${phoneNumber}&text=${message}`, '_blank');
                     } else if (button.id === 'dark-mode-toggle') {
                         state.darkMode = !state.darkMode;
                         document.documentElement.classList.toggle('dark', state.darkMode);

@@ -25,128 +25,104 @@
         }
         @media (min-width: 1024px) { body { padding-bottom: 0; } }
         
-        /* Estilos de barra de desplazamiento personalizados para la lista de productos */
-        .product-list::-webkit-scrollbar { width: 8px; }
-        .product-list::-webkit-scrollbar-track { background: #f1f5f9; }
-        .product-list::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
-        html.dark .product-list::-webkit-scrollbar-track { background: #1e293b; }
-        html.dark .product-list::-webkit-scrollbar-thumb { background: #475569; }
+        /* Estilos de barra de desplazamiento personalizados */
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
+        html.dark .custom-scrollbar::-webkit-scrollbar-track { background: #1e293b; }
+        html.dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; }
 
-        /* Ocultar la barra de desplazamiento para los filtros de categoría pero mantener la funcionalidad de desplazamiento */
-        #category-filters::-webkit-scrollbar {
-            display: none; /* Para navegadores Webkit (Chrome, Safari) */
-        }
+        #category-filters::-webkit-scrollbar { display: none; }
         #category-filters {
-            -ms-overflow-style: none;  /* Para IE y Edge */
-            scrollbar-width: none;  /* Para Firefox */
-            scroll-behavior: smooth; /* Desplazamiento suave para desplazamientos programáticos */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
         }
 
-
-        /* Estilos de banner - imagen de fondo establecida dinámicamente en JS */
         .banner {
-            height: 200px; /* Altura predeterminada */
+            height: 200px;
             background-size: cover;
             background-position: center;
         }
-        /* Fuente Oswald para títulos específicos (Carnicería) */
         .logo-font {
             font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
         }
 
         /* Animaciones modales */
-        .modal-enter { transform: translateY(100%); }
-        .modal-enter-active { transform: translateY(0); transition: transform 0.3s ease-out; }
-        .modal-leave-active { transform: translateY(100%); transition: transform 0.3s ease-in; }
+        .modal-enter { transform: translateY(100%); opacity: 0; }
+        .modal-enter-active { transform: translateY(0); opacity: 1; transition: transform 0.3s ease-out, opacity 0.3s ease-out; }
+        .modal-leave-active { transform: translateY(100%); opacity: 0; transition: transform 0.3s ease-in, opacity 0.3s ease-in; }
         
-        /* Animación de volar al carrito */
         .fly-to-cart {
             position: absolute;
             font-size: 2rem;
             z-index: 100;
             transition: all 0.6s ease-in-out;
         }
-        /* Animación de pulso del carrito */
-        .cart-pulse {
-            animation: pulse 0.5s;
-        }
+        .cart-pulse { animation: pulse 0.5s; }
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.2); }
             100% { transform: scale(1); }
         }
 
-        /* Clases de botones personalizados para aplicación dinámica */
-        /* Estas son clases base que pueden ser extendidas por clases dinámicas de Tailwind */
         .btn-base {
             @apply text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-all duration-300;
         }
-        .btn-base:hover {
-            @apply shadow-lg transform scale-105;
-        }
-        .btn-base:disabled {
-            @apply cursor-not-allowed scale-100 shadow-none;
-        }
+        .btn-base:hover { @apply shadow-lg transform scale-105; }
+        .btn-base:disabled { @apply cursor-not-allowed scale-100 shadow-none; }
 
-        /* Estilo base de la tarjeta de producto */
         .product-card-base {
             @apply bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl p-3 flex flex-col justify-between transition-all duration-300;
         }
-        .product-card-base:hover {
-            @apply shadow-xl transform -translate-y-1;
-        }
+        .product-card-base:hover { @apply shadow-xl transform -translate-y-1; }
 
-        /* Color de anillo de enfoque dinámico usando variable CSS */
-        .focus\:ring-current-primary:focus {
-            --tw-ring-color: var(--current-primary);
-        }
+        .focus\:ring-current-primary:focus { --tw-ring-color: var(--current-primary); }
 
-        /* Estilo para los botones de categoría como tarjetas - UX mejorada */
         .category-card-base {
-            @apply flex flex-col items-center justify-center p-4 rounded-xl transition-colors
-                   bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 shadow-md;
-            min-width: 140px; /* Ancho mínimo aumentado */
-            height: 160px; /* Altura aumentada */
+            @apply flex flex-col items-center justify-center p-4 rounded-xl transition-colors bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 shadow-md;
+            min-width: 140px;
+            height: 160px;
             flex-shrink: 0;
             text-align: center;
-            gap: 8px; /* Espacio aumentado entre imagen y texto */
+            gap: 8px;
         }
-        .category-card-base:hover {
-            @apply shadow-lg transform -translate-y-1;
-        }
-        .category-card-base img {
-            @apply w-28 h-28 rounded-full object-cover; /* Tamaño de imagen mucho más grande */
-        }
-        /* Estilo para el texto dentro de las tarjetas de categoría */
+        .category-card-base:hover { @apply shadow-lg transform -translate-y-1; }
+        .category-card-base img { @apply w-28 h-28 rounded-full object-cover; }
         .category-card-base span {
-            font-size: 1rem; /* Tamaño de fuente ajustado (16px) */
-            font-weight: 600; /* Peso de fuente semibold */
-            line-height: 1.2; /* Mejor altura de línea para texto de varias líneas */
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.2;
         }
-        /* Nuevo estilo para tarjetas de categoría premium */
         .category-card-base.premium-highlight {
             border: 2px solid gold;
             box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
         }
+        /* Spinner for loading state */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: var(--current-primary);
+            animation: spin 1s ease infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
     <script>
-        // Configuración de Tailwind CSS para el modo oscuro
-        tailwind.config = {
-            darkMode: 'class',
-        }
+        tailwind.config = { darkMode: 'class' }
     </script>
 </head>
 <body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300">
     
     <div id="main-banner" class="banner rounded-b-3xl shadow-lg flex items-center justify-center relative">
-        <!-- Superposición para efecto de transición de desvanecimiento -->
         <div id="banner-fade-overlay" class="absolute inset-0 bg-black opacity-0 rounded-b-3xl transition-opacity duration-1000 ease-in-out"></div>
-        <!-- Superposición oscura existente -->
         <div class="absolute inset-0 bg-black opacity-40 rounded-b-3xl"></div>
-        <h1 id="banner-title" class="text-5xl md:text-6xl font-extrabold text-white z-10" style="text-shadow: 3px 3px 8px rgba(0,0,0,0.6);">
-            Mercado Fácil
-        </h1>
+        <h1 id="banner-title" class="text-5xl md:text-6xl font-extrabold text-white z-10" style="text-shadow: 3px 3px 8px rgba(0,0,0,0.6);">Mercado Fácil</h1>
     </div>
 
     <div class="container mx-auto p-4 md:p-8 max-w-7xl">
@@ -158,16 +134,11 @@
         <!-- Controles Globales -->
         <div class="z-30 bg-slate-100/80 dark:bg-slate-900/80 backdrop-blur-sm py-4 mb-4">
             <div class="flex flex-col md:flex-row justify-center items-center gap-4">
-                <!-- Selector de Tienda -->
-                <div id="shop-switcher" class="flex gap-2 bg-white dark:bg-slate-800 p-2 rounded-xl shadow-md">
-                    <!-- Los botones de la tienda se renderizarán aquí mediante JS -->
-                </div>
-                <!-- Barra de Búsqueda -->
+                <div id="shop-switcher" class="flex gap-2 bg-white dark:bg-slate-800 p-2 rounded-xl shadow-md"></div>
                 <div class="relative w-full md:max-w-xs">
                     <input type="search" id="search-input" class="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl p-2 pl-10 focus:ring-2 focus:ring-current-primary">
                     <i class="ph ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
                 </div>
-                <!-- Controles de Idioma, Moneda, Modo Oscuro -->
                 <div class="flex items-center gap-4 bg-white dark:bg-slate-800 p-2 rounded-xl shadow-md">
                     <select id="language-switcher" class="bg-slate-100 dark:bg-slate-700 border-none rounded-md p-1 font-semibold text-sm focus:ring-2 focus:ring-current-primary"></select>
                     <select id="currency-switcher" class="bg-slate-100 dark:bg-slate-700 border-none rounded-md p-1 font-semibold text-sm focus:ring-2 focus:ring-current-primary"></select>
@@ -177,34 +148,24 @@
                     </button>
                 </div>
             </div>
-             <!-- Filtros de Categoría -->
             <div class="relative flex items-center justify-center w-full mt-4">
-                <button id="scroll-left-btn" class="hidden md:flex absolute left-0 z-10 p-2 rounded-full bg-white/80 dark:bg-slate-800/80 shadow-md hover:bg-white dark:hover:bg-slate-700 transition-colors">
-                    <i class="ph ph-caret-left text-xl text-slate-600 dark:text-slate-300"></i>
-                </button>
-                <div id="category-filters" class="flex gap-3 overflow-x-auto pb-2 px-4 w-full justify-start">
-                    <!-- Los botones de categoría se renderizarán aquí mediante JS -->
-                </div>
-                <button id="scroll-right-btn" class="hidden md:flex absolute right-0 z-10 p-2 rounded-full bg-white/80 dark:bg-slate-800/80 shadow-md hover:bg-white dark:hover:bg-slate-700 transition-colors">
-                    <i class="ph ph-caret-right text-xl text-slate-600 dark:text-slate-300"></i>
-                </button>
+                <button id="scroll-left-btn" class="hidden md:flex absolute left-0 z-10 p-2 rounded-full bg-white/80 dark:bg-slate-800/80 shadow-md hover:bg-white dark:hover:bg-slate-700 transition-colors"><i class="ph ph-caret-left text-xl text-slate-600 dark:text-slate-300"></i></button>
+                <div id="category-filters" class="flex gap-3 overflow-x-auto pb-2 px-4 w-full justify-start"></div>
+                <button id="scroll-right-btn" class="hidden md:flex absolute right-0 z-10 p-2 rounded-full bg-white/80 dark:bg-slate-800/80 shadow-md hover:bg-white dark:hover:bg-slate-700 transition-colors"><i class="ph ph-caret-right text-xl text-slate-600 dark:text-slate-300"></i></button>
             </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 lg:gap-8">
-            <!-- Columna de Productos -->
             <div class="lg:col-span-2">
                 <div class="bg-white dark:bg-slate-800 p-4 md:p-6 rounded-2xl shadow-lg">
                     <h2 id="products-title" class="text-xl md:text-2xl font-semibold mb-6 flex items-center"></h2>
-                    <div id="product-list" class="grid grid-cols-2 md:grid-cols-3 gap-4 product-list min-h-[50vh]"></div>
+                    <div id="product-list" class="grid grid-cols-2 md:grid-cols-3 gap-4 custom-scrollbar min-h-[50vh]"></div>
                 </div>
             </div>
-
-            <!-- Columna de Cotización de Escritorio -->
             <div class="hidden lg:block lg:col-span-1">
                 <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg sticky top-28">
                     <h2 id="quote-title-desktop" class="text-2xl font-semibold mb-6 flex items-center"></h2>
-                    <div id="cart-items-desktop" class="space-y-4 mb-6 min-h-[150px] max-h-[40vh] overflow-y-auto"></div>
+                    <div id="cart-items-desktop" class="space-y-4 mb-6 min-h-[150px] max-h-[40vh] overflow-y-auto custom-scrollbar"></div>
                     <div id="cart-totals-desktop"></div>
                     <div id="cart-buttons-desktop" class="mt-6 space-y-3"></div>
                 </div>
@@ -226,12 +187,10 @@
 
     <!-- Modal de Carrito para Móviles -->
     <div id="mobile-cart-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40">
-        <div id="modal-content" class="absolute bottom-0 left-0 right-0 bg-slate-100 dark:bg-slate-900 rounded-t-2xl p-4 max-h-[85vh] overflow-y-auto transition-transform duration-300 ease-in-out modal-enter">
+        <div id="modal-content" class="absolute bottom-0 left-0 right-0 bg-slate-100 dark:bg-slate-900 rounded-t-2xl p-4 max-h-[85vh] overflow-y-auto transition-transform duration-300 ease-in-out modal-enter custom-scrollbar">
             <div class="flex justify-between items-center mb-4 pb-4 border-b border-slate-200 dark:border-slate-700">
                 <h2 id="quote-title-mobile" class="text-2xl font-semibold flex items-center"></h2>
-                <button id="close-modal-btn" class="text-slate-500 hover:text-slate-800 dark:hover:text-white">
-                    <i class="ph ph-x text-3xl"></i>
-                </button>
+                <button id="close-modal-btn" class="text-slate-500 hover:text-slate-800 dark:hover:text-white"><i class="ph ph-x text-3xl"></i></button>
             </div>
             <div id="cart-items-mobile" class="space-y-4 mb-6"></div>
             <div id="cart-totals-mobile" class="bg-white dark:bg-slate-800 p-4 rounded-xl"></div>
@@ -239,27 +198,40 @@
         </div>
     </div>
 
+    <!-- Modal de Receta con IA -->
+    <div id="recipe-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4">
+        <div id="recipe-modal-content" class="bg-white dark:bg-slate-800 rounded-2xl p-6 max-w-2xl w-full max-h-[90vh] flex flex-col transition-transform duration-300 ease-in-out scale-95 opacity-0">
+             <div class="flex justify-between items-center mb-4 pb-4 border-b border-slate-200 dark:border-slate-700">
+                <h2 id="recipe-modal-title" class="text-2xl font-semibold flex items-center text-slate-800 dark:text-white"></h2>
+                <button id="close-recipe-modal-btn" class="text-slate-500 hover:text-slate-800 dark:hover:text-white"><i class="ph ph-x text-3xl"></i></button>
+            </div>
+            <div id="recipe-modal-body" class="overflow-y-auto custom-scrollbar">
+                <!-- El contenido de la receta (o el spinner) se insertará aquí -->
+            </div>
+        </div>
+    </div>
+
+
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             // --- 1. DATA AND CONFIGURATION ---
-            // Consolidated data for all shops
             const SHOPS_CONFIG = {
                 'foodMarket': {
                     id: 'foodMarket',
                     name: 'Food Market',
-                    banner: 'https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?q=80&w=2574&auto=format&fit=crop', // Default banner if no dynamic images
+                    banner: 'https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?q=80&w=2574&auto=format&fit=crop',
                     bannerTitle: 'Mercado Fácil',
-                    logoFontClass: '', // No special font for Food Market banner
-                    bannerImages: [ // Images for dynamic banner rotation
-                        'https://raw.githubusercontent.com/LineaMedica/compra/main/IMG/01%20verduras.png',
-                        'https://raw.githubusercontent.com/LineaMedica/compra/main/IMG/02%20lacteos.png',
-                        'https://raw.githubusercontent.com/LineaMedica/compra/main/IMG/09%20despensa.png',
-                        'https://raw.githubusercontent.com/LineaMedica/compra/main/IMG/11%20bebidas.png',
-                        'https://raw.githubusercontent.com/LineaMedica/compra/main/IMG/18%20congelados.png'
+                    logoFontClass: '',
+                    bannerImages: [
+                        'https://raw.githubusercontent.com/NucleoColectivo/compra/main/IMG/01%20verduras.png',
+                        'https://raw.githubusercontent.com/NucleoColectivo/compra/main/IMG/02%20lacteos.png',
+                        'https://raw.githubusercontent.com/NucleoColectivo/compra/main/IMG/09%20despensa.png',
+                        'https://raw.githubusercontent.com/NucleoColectivo/compra/main/IMG/11%20bebidas.png',
+                        'https://raw.githubusercontent.com/NucleoColectivo/compra/main/IMG/18%20congelados.png'
                     ],
                     products: [
                         { id: 1, name: "Arroz Blanco (1kg)", price: 5500, icon: "🍚", category: "pantry" },
-                        { id: 2, name: "Leche Entera (1L)", price: 4200, icon: "�", category: "dairy" },
+                        { id: 2, name: "Leche Entera (1L)", price: 4200, icon: "🥛", category: "dairy" },
                         { id: 3, name: "Huevos (x30)", price: 18000, icon: "🥚", category: "dairy" },
                         { id: 4, name: "Café Colombiano (500g)", price: 22000, icon: "☕", category: "pantry" },
                         { id: 5, name: "Aceite Vegetal (1L)", price: 15500, icon: "🍾", category: "pantry" },
@@ -347,7 +319,11 @@
                             searchPlaceholder: "Buscar productos...",
                             language: "Idioma",
                             currency: "Moneda",
-                            shopName: "Food Market" // For shop switcher button
+                            shopName: "Food Market",
+                            generateRecipe: "✨ Generar Receta",
+                            generatingRecipe: "Generando receta...",
+                            recipeModalTitle: "Receta Sugerida por IA",
+                            recipeError: "Hubo un error al generar la receta. Por favor, intenta de nuevo."
                         },
                         en: {
                             pageTitle: "Your Buddy Now! - Quote PRO",
@@ -370,39 +346,31 @@
                             searchPlaceholder: "Search products...",
                             language: "Language",
                             currency: "Currency",
-                            shopName: "Food Market" // For shop switcher button
+                            shopName: "Food Market",
+                            generateRecipe: "✨ Generate Recipe",
+                            generatingRecipe: "Generating recipe...",
+                            recipeModalTitle: "AI Suggested Recipe",
+                            recipeError: "There was an error generating the recipe. Please try again."
                         }
                     },
                     theme: {
-                        primaryColor: 'sky', // Tailwind color name for main theme
-                        primaryColorHex: '#0284c7', // For dynamic CSS variables
-                        primaryColorLightHex: '#38bdf8', // For dark mode moon icon
-                        buttonClass: 'btn-primary-sky', // Default button class for this shop
-                        productPriceColor: 'slate-600', // Default product price color
-                        categoryColors: { // Specific colors for categories within Food Market
-                            fruits_veg: 'green',
-                            dairy: 'blue',
-                            meats: 'red',
-                            pantry: 'orange',
-                            bakery: 'yellow',
-                            drinks: 'indigo',
-                            snacks: 'purple',
-                            cleaning: 'teal',
-                            personal_care: 'pink',
-                            frozen: 'cyan'
-                        },
-                        // Las URLs de las imágenes de las categorías han sido actualizadas para usar la ruta de GitHub.
+                        primaryColor: 'sky',
+                        primaryColorHex: '#0284c7',
+                        primaryColorLightHex: '#38bdf8',
+                        buttonClass: 'btn-primary-sky',
+                        productPriceColor: 'slate-600',
+                        categoryColors: { fruits_veg: 'green', dairy: 'blue', meats: 'red', pantry: 'orange', bakery: 'yellow', drinks: 'indigo', snacks: 'purple', cleaning: 'teal', personal_care: 'pink', frozen: 'cyan' },
                         categoryImageUrls: { 
-                            fruits_veg: 'https://raw.githubusercontent.com/LineaMedica/compra/main/IMG/01%20verduras.png',
-                            dairy: 'https://raw.githubusercontent.com/LineaMedica/compra/main/IMG/02%20lacteos2.png', 
-                            meats: 'https://raw.githubusercontent.com/LineaMedica/compra/main/IMG/03%20carnes.png', 
-                            pantry: 'https://raw.githubusercontent.com/LineaMedica/compra/main/IMG/05%20despensa.png',
-                            bakery: 'https://raw.githubusercontent.com/LineaMedica/compra/main/IMG/06%20panaderi%CC%81a.png', 
-                            drinks: 'https://raw.githubusercontent.com/LineaMedica/compra/main/IMG/07%20bebidas.png', 
-                            snacks: 'https://raw.githubusercontent.com/LineaMedica/compra/main/IMG/08%20snacks.png', 
-                            cleaning: 'https://raw.githubusercontent.com/LineaMedica/compra/main/IMG/09%20limpieza.png', 
-                            personal_care: 'https://raw.githubusercontent.com/LineaMedica/compra/main/IMG/11%20cuidado%20personal.png', 
-                            frozen: 'https://raw.githubusercontent.com/LineaMedica/compra/main/IMG/12%20congelados.png' 
+                            fruits_veg: 'https://raw.githubusercontent.com/NucleoColectivo/compra/main/IMG/ICONOS/01%20verduras.png',
+                            dairy: 'https://raw.githubusercontent.com/NucleoColectivo/compra/main/IMG/ICONOS/02%20lacteos2.png', 
+                            meats: 'https://raw.githubusercontent.com/NucleoColectivo/compra/main/IMG/ICONOS/03%20carnes.png', 
+                            pantry: 'https://raw.githubusercontent.com/NucleoColectivo/compra/main/IMG/ICONOS/05%20despensa.png',
+                            bakery: 'https://raw.githubusercontent.com/NucleoColectivo/compra/main/IMG/ICONOS/06%20panaderi%CC%81a.png', 
+                            drinks: 'https://raw.githubusercontent.com/NucleoColectivo/compra/main/IMG/ICONOS/07%20bebidas.png', 
+                            snacks: 'https://raw.githubusercontent.com/NucleoColectivo/compra/main/IMG/ICONOS/08%20snacks.png', 
+                            cleaning: 'https://raw.githubusercontent.com/NucleoColectivo/compra/main/IMG/ICONOS/09%20limpieza.png', 
+                            personal_care: 'https://raw.githubusercontent.com/NucleoColectivo/compra/main/IMG/ICONOS/12%20cuidado%20personal.png', 
+                            frozen: 'https://raw.githubusercontent.com/NucleoColectivo/compra/main/IMG/ICONOS/11%20congeladosl.png' 
                         }
                     }
                 },
@@ -411,7 +379,7 @@
                     name: 'The Premium Cut',
                     banner: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?q=80&w=2670&auto=format&fit=crop',
                     bannerTitle: 'The Premium Cut',
-                    logoFontClass: 'logo-font', // Special font for Butcher Shop banner
+                    logoFontClass: 'logo-font',
                     products: [
                         { id: 101, name: "Lomo de Res (500g)", price: 35000, icon: "🥩", category: "res" },
                         { id: 102, name: "Punta de Anca (1kg)", price: 60000, icon: "🥩", category: "res" },
@@ -452,7 +420,11 @@
                             searchPlaceholder: "Buscar carnes, quesos...",
                             language: "Idioma",
                             currency: "Moneda",
-                            shopName: "The Premium Cut" // For shop switcher button
+                            shopName: "The Premium Cut",
+                            generateRecipe: "✨ Sugerir Preparación",
+                            generatingRecipe: "Buscando sugerencias...",
+                            recipeModalTitle: "Sugerencia del Chef IA",
+                            recipeError: "Hubo un error al generar la sugerencia. Por favor, intenta de nuevo."
                         },
                         en: {
                             pageTitle: "The Premium Cut - Butcher & Deli",
@@ -475,23 +447,20 @@
                             searchPlaceholder: "Search for meats, cheeses...",
                             language: "Language",
                             currency: "Currency",
-                            shopName: "The Premium Cut" // For shop switcher button
+                            shopName: "The Premium Cut",
+                            generateRecipe: "✨ Suggest Preparation",
+                            generatingRecipe: "Getting suggestions...",
+                            recipeModalTitle: "AI Chef's Suggestion",
+                            recipeError: "There was an error generating the suggestion. Please try again."
                         }
                     },
                     theme: {
-                        primaryColor: 'red', // Tailwind color name
-                        primaryColorHex: '#ef4444', // For dynamic CSS variables
-                        primaryColorLightHex: '#f87171', // For dark mode moon icon
-                        buttonClass: 'btn-primary-red', // Default button class for this shop
-                        productPriceColor: 'red-600', // Default product price color
-                        categoryColors: { // All butcher shop categories will use red
-                            all: 'red',
-                            res: 'red',
-                            cerdo: 'red',
-                            pollo: 'red',
-                            embutidos: 'red',
-                            charcuteria: 'red'
-                        }
+                        primaryColor: 'red',
+                        primaryColorHex: '#ef4444',
+                        primaryColorLightHex: '#f87171',
+                        buttonClass: 'btn-primary-red',
+                        productPriceColor: 'red-600',
+                        categoryColors: { all: 'red', res: 'red', cerdo: 'red', pollo: 'red', embutidos: 'red', charcuteria: 'red' }
                     }
                 }
             };
@@ -506,27 +475,24 @@
                 darkMode: false,
                 searchQuery: '',
                 activeCategory: 'all',
-                activeShop: 'foodMarket', // New state for active shop
-                currentBannerIndex: 0 // New state for dynamic banner
+                activeShop: 'foodMarket',
+                currentBannerIndex: 0
             };
 
             // --- DOM REFERENCES ---
-            const dom = {}; // Defined in defineDomAndTranslations
+            const dom = {}; 
 
-            // --- API SIMULATION ---
+            // --- API SIMULATION & HELPERS ---
             const fetchExchangeRates = async () => {
-                console.log("Fetching exchange rates...");
                 await new Promise(resolve => setTimeout(resolve, 500));
-                const newRates = { COP: 1, USD: 0.00025 + Math.random() * 0.00001, EUR: 0.00023 + Math.random() * 0.00001 };
-                console.log("Rates updated:", newRates);
-                return newRates;
+                return { COP: 1, USD: 0.00025 + Math.random() * 0.00001, EUR: 0.00023 + Math.random() * 0.00001 };
             };
-
-            let bannerInterval; // Variable to hold the interval ID for banner rotation
+            
+            let bannerInterval;
 
             // --- INITIALIZATION LOGIC ---
             const init = async () => {
-                defineDomAndTranslations();
+                defineDomElements();
                 loadState();
                 try {
                     exchangeRates = await fetchExchangeRates();
@@ -534,7 +500,7 @@
                     console.error("Failed to fetch exchange rates, using default.", error);
                 }
                 setupEventListeners();
-                updateUI(); // Initial UI render, which now includes starting banner rotation
+                updateUI();
             };
 
             // --- STATE LOGIC (localStorage) ---
@@ -545,7 +511,7 @@
                     currency: state.currency,
                     darkMode: state.darkMode,
                     activeShop: state.activeShop,
-                    currentBannerIndex: state.currentBannerIndex // Save banner index
+                    currentBannerIndex: state.currentBannerIndex
                 };
                 localStorage.setItem('foodMarketAppState', JSON.stringify(stateToSave));
             };
@@ -568,14 +534,9 @@
             const updateUI = () => {
                 const currentShop = SHOPS_CONFIG[state.activeShop];
                 
-                // Update banner title and font class
                 dom.bannerTitle.textContent = currentShop.bannerTitle;
-                dom.bannerTitle.classList.remove('logo-font');
-                if (currentShop.logoFontClass) {
-                    dom.bannerTitle.classList.add(currentShop.logoFontClass);
-                }
-
-                // Update dynamic CSS variables for theme colors
+                dom.bannerTitle.className = `text-5xl md:text-6xl font-extrabold text-white z-10 ${currentShop.logoFontClass || ''}`;
+                
                 document.documentElement.style.setProperty('--current-primary', currentShop.theme.primaryColorHex);
                 document.documentElement.style.setProperty('--current-primary-light', currentShop.theme.primaryColorLightHex);
 
@@ -585,26 +546,20 @@
                 renderProducts();
                 renderCart();
                 updateDarkModeToggle();
-                startBannerRotation(); // Start/restart banner rotation for the active shop
+                startBannerRotation();
             };
 
             const updateTexts = () => {
-                const currentShopTranslations = SHOPS_CONFIG[state.activeShop].translations[state.lang];
-                
-                // Update document title
-                document.title = currentShopTranslations.pageTitle || SHOPS_CONFIG[state.activeShop].name; // Fallback to shop name if pageTitle is not defined
-
-                dom.mainTitle.textContent = currentShopTranslations.mainTitle;
-                dom.mainSubtitle.textContent = currentShopTranslations.mainSubtitle;
-                dom.searchInput.placeholder = currentShopTranslations.searchPlaceholder;
-                dom.viewCartLabel.textContent = currentShopTranslations.viewCart; // Corrected this line to use viewCart
-
-                // Handle HTML content for titles (products, desktop quote, mobile quote)
-                dom.productsTitle.innerHTML = currentShopTranslations.productsTitle;
-                dom.quoteTitleDesktop.innerHTML = currentShopTranslations.quoteTitleDesktop;
-                dom.quoteTitleMobile.innerHTML = currentShopTranslations.quoteTitleMobile;
-
-                dom.mobileTotalLabel.textContent = currentShopTranslations.mobileTotalLabel;
+                const t = SHOPS_CONFIG[state.activeShop].translations[state.lang];
+                document.title = t.pageTitle;
+                dom.mainTitle.textContent = t.mainTitle;
+                dom.mainSubtitle.textContent = t.mainSubtitle;
+                dom.searchInput.placeholder = t.searchPlaceholder;
+                dom.viewCartLabel.textContent = t.viewCart;
+                dom.productsTitle.innerHTML = t.productsTitle;
+                dom.quoteTitleDesktop.innerHTML = t.quoteTitleDesktop;
+                dom.quoteTitleMobile.innerHTML = t.quoteTitleMobile;
+                dom.mobileTotalLabel.textContent = t.mobileTotalLabel;
             };
 
             const renderShopSwitcher = () => {
@@ -612,70 +567,47 @@
                     const isActive = state.activeShop === shop.id;
                     const activeClasses = `bg-${shop.theme.primaryColor}-600 text-white shadow-lg`;
                     const inactiveClasses = `bg-white dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600`;
-                    return `
-                        <button data-shop="${shop.id}" class="shop-btn px-4 py-2 rounded-xl font-semibold text-sm transition-colors ${isActive ? activeClasses : inactiveClasses}">
-                            ${shop.translations[state.lang].shopName}
-                        </button>
-                    `;
+                    return `<button data-shop="${shop.id}" class="shop-btn px-4 py-2 rounded-xl font-semibold text-sm transition-colors ${isActive ? activeClasses : inactiveClasses}">${shop.translations[state.lang].shopName}</button>`;
                 }).join('');
             };
             
             const renderCategoryFilters = () => {
-                const currentShopCategories = SHOPS_CONFIG[state.activeShop].categories[state.lang];
-                const currentShopTheme = SHOPS_CONFIG[state.activeShop].theme;
-                const categoryImageUrls = currentShopTheme.categoryImageUrls || {}; // Get image URLs
+                const currentShop = SHOPS_CONFIG[state.activeShop];
+                const t = currentShop.categories[state.lang];
+                const theme = currentShop.theme;
 
-                dom.categoryFilters.innerHTML = Object.entries(currentShopCategories).map(([key, value]) => {
+                dom.categoryFilters.innerHTML = Object.entries(t).map(([key, value]) => {
                     const isActive = state.activeCategory === key;
-                    // Determine the color for the active category button
-                    const categoryColor = currentShopTheme.categoryColors[key] || currentShopTheme.primaryColor;
+                    const categoryColor = theme.categoryColors[key] || theme.primaryColor;
                     const activeClasses = `bg-${categoryColor}-600 text-white shadow-lg`;
                     const inactiveClasses = `bg-white dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600`;
-                    
-                    const imageUrl = categoryImageUrls[key];
-                    let content;
-                    if (imageUrl) {
-                        content = `<img src="${imageUrl}" alt="${value}" onerror="this.onerror=null;this.src='https://placehold.co/112x112/cccccc/000000?text=IMG';" class="w-28 h-28 rounded-full object-cover"><span>${value}</span>`; // Adjusted image size
-                    } else {
-                        // For categories without images (like 'all' or butcherShop emojis)
-                        // The value already contains the emoji, e.g., "Todo 🔪"
-                        content = `<span>${value}</span>`;
-                    }
-
-                    // Determine if this card should have the premium highlight
-                    // Applying it to the 'all' category of the butcherShop as a general highlight
-                    const isPremiumShopAllCategory = state.activeShop === 'butcherShop' && key !== 'all'; // Changed to apply to all except 'all'
-                    const premiumClass = isPremiumShopAllCategory ? 'premium-highlight' : '';
-
-                    // Apply the generic card base class to all category buttons
-                    return `
-                        <button data-category="${key}" class="category-card-base ${isActive ? activeClasses : inactiveClasses} ${premiumClass}">
-                            ${content}
-                        </button>
-                    `;
+                    const imageUrl = theme.categoryImageUrls ? theme.categoryImageUrls[key] : null;
+                    const content = imageUrl 
+                        ? `<img src="${imageUrl}" alt="${value}" onerror="this.onerror=null;this.src='https://placehold.co/112x112/cccccc/000000?text=IMG';" class="w-28 h-28 rounded-full object-cover"><span>${value}</span>`
+                        : `<span>${value}</span>`;
+                    const premiumClass = state.activeShop === 'butcherShop' && key !== 'all' ? 'premium-highlight' : '';
+                    return `<button data-category="${key}" class="category-card-base ${isActive ? activeClasses : inactiveClasses} ${premiumClass}">${content}</button>`;
                 }).join('');
             };
 
             const renderProducts = () => {
                 const currentShop = SHOPS_CONFIG[state.activeShop];
                 const t = currentShop.translations[state.lang];
-                const filteredProducts = currentShop.products.filter(p => {
-                    const matchesCategory = state.activeCategory === 'all' || p.category === state.activeCategory;
-                    const matchesSearch = p.name.toLowerCase().includes(state.searchQuery.toLowerCase());
-                    return matchesCategory && matchesSearch;
-                });
+                const filteredProducts = currentShop.products.filter(p => 
+                    (state.activeCategory === 'all' || p.category === state.activeCategory) &&
+                    p.name.toLowerCase().includes(state.searchQuery.toLowerCase())
+                );
+
+                if (filteredProducts.length === 0) {
+                    dom.productList.innerHTML = `<p class="col-span-full text-center text-slate-500 py-10">${t.noProductsFound}</p>`;
+                    return;
+                }
 
                 dom.productList.innerHTML = filteredProducts.map(product => {
                     const displayPrice = product.price * exchangeRates[state.currency];
                     const isInCart = state.cart.some(item => item.id === product.id);
-                    
-                    // Determine button color based on category
                     const categoryButtonColor = currentShop.theme.categoryColors[product.category] || currentShop.theme.primaryColor;
-                    const buttonClasses = isInCart 
-                        ? 'bg-green-500 text-white' 
-                        : `bg-${categoryButtonColor}-600 text-white hover:bg-${categoryButtonColor}-700`;
-
-                    // Determine product price color based on category, fallback to shop's general product price color
+                    const buttonClasses = isInCart ? 'bg-green-500 text-white' : `bg-${categoryButtonColor}-600 text-white hover:bg-${categoryButtonColor}-700`;
                     const productPriceColorClass = `text-${categoryButtonColor}-600`;
 
                     return `
@@ -689,30 +621,21 @@
                                 <i class="ph ${isInCart ? 'ph-check-circle' : 'ph-plus-circle'}"></i>
                                 <span data-id="${product.id}">${isInCart ? t.addedToCart : t.addToCart}</span>
                             </button>
-                        </div>
-                    `;
+                        </div>`;
                 }).join('');
-                if (filteredProducts.length === 0) {
-                    dom.productList.innerHTML = `<p class="col-span-full text-center text-slate-500 py-10">${t.noProductsFound}</p>`;
-                }
             };
 
             const renderCart = () => {
                 const currentShop = SHOPS_CONFIG[state.activeShop];
                 const t = currentShop.translations[state.lang];
                 let subtotal = 0;
-                let cartItemsHTML = '';
-
-                // Filter cart items to only show products from the active shop
+                
                 const activeShopProducts = currentShop.products;
-                const cartItemsForActiveShop = state.cart.filter(cartItem => 
-                    activeShopProducts.some(product => product.id === cartItem.id)
-                );
+                const cartItemsForActiveShop = state.cart.filter(cartItem => activeShopProducts.some(p => p.id === cartItem.id));
 
-                if (cartItemsForActiveShop.length === 0) {
-                    cartItemsHTML = `<div class="text-center text-slate-500 dark:text-slate-400 py-10"><i class="ph ph-shopping-cart text-5xl"></i><p class="mt-2 font-medium">${t.cartEmpty}</p></div>`;
-                } else {
-                    cartItemsHTML = cartItemsForActiveShop.map(item => {
+                const cartItemsHTML = cartItemsForActiveShop.length === 0 
+                    ? `<div class="text-center text-slate-500 dark:text-slate-400 py-10"><i class="ph ph-shopping-cart text-5xl"></i><p class="mt-2 font-medium">${t.cartEmpty}</p></div>`
+                    : cartItemsForActiveShop.map(item => {
                         const product = activeShopProducts.find(p => p.id === item.id);
                         const itemPrice = product.price * exchangeRates[state.currency];
                         subtotal += itemPrice * item.quantity;
@@ -725,31 +648,29 @@
                                     <button data-id="${item.id}" class="increase-quantity-btn w-6 h-6 rounded-full bg-white dark:bg-slate-600 shadow-sm hover:bg-slate-200 dark:hover:bg-slate-500 transition">+</button>
                                 </div>
                                 <button data-id="${item.id}" class="remove-item-btn text-red-500 hover:text-red-700 transition"><i class="ph ph-x-circle text-xl"></i></button>
-                            </div>
-                        `;
+                            </div>`;
                     }).join('');
-                }
+                
                 dom.cartItemsDesktop.innerHTML = cartItemsHTML;
                 dom.cartItemsMobile.innerHTML = cartItemsHTML;
 
                 const iva = subtotal * 0.19;
                 const total = subtotal + iva;
 
-                const totalsHTML = `
+                dom.cartTotalsDesktop.innerHTML = `
                     <div class="space-y-2">
                         <div class="flex justify-between font-medium text-slate-600 dark:text-slate-300 text-sm"><span>${t.subtotal}</span><span>${formatCurrency(subtotal)}</span></div>
                         <div class="flex justify-between font-medium text-slate-600 dark:text-slate-300 text-sm"><span>${t.iva}</span><span>${formatCurrency(iva)}</span></div>
                         <div class="flex justify-between font-bold text-lg text-slate-900 dark:text-white mt-2 border-t border-slate-200 dark:border-slate-700 pt-2"><span>${t.total}</span><span>${formatCurrency(total)}</span></div>
                     </div>`;
-                dom.cartTotalsDesktop.innerHTML = totalsHTML;
-                dom.cartTotalsMobile.innerHTML = totalsHTML;
+                dom.cartTotalsMobile.innerHTML = dom.cartTotalsDesktop.innerHTML;
 
                 const hasItems = cartItemsForActiveShop.length > 0;
-                // Apply the correct button class for the "View Cart" button
                 const viewCartButtonColor = currentShop.theme.primaryColor;
                 dom.viewCartBtn.className = `btn-base bg-${viewCartButtonColor}-600 hover:bg-${viewCartButtonColor}-700 disabled:bg-${viewCartButtonColor}-300 dark:disabled:bg-${viewCartButtonColor}-800 flex items-center gap-2 disabled:cursor-not-allowed`;
 
                 const buttonsHTML = `
+                    <button id="generate-recipe-btn" class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 disabled:bg-purple-300 dark:disabled:bg-purple-800 disabled:cursor-not-allowed" ${!hasItems ? 'disabled' : ''}>${t.generateRecipe}</button>
                     <button id="whatsapp-btn" class="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors flex items-center justify-center gap-2 disabled:bg-green-300 dark:disabled:bg-green-800 disabled:cursor-not-allowed" ${!hasItems ? 'disabled' : ''}><i class="ph-fill ph-whatsapp-logo"></i><span>${t.sendWhatsApp}</span></button>
                     <button id="clear-cart-btn" class="w-full bg-red-500 text-white py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors flex items-center justify-center gap-2 disabled:bg-red-300 dark:disabled:bg-red-800 disabled:cursor-not-allowed" ${!hasItems ? 'disabled' : ''}><i class="ph ph-trash"></i><span>${t.clearQuote}</span></button>`;
                 
@@ -789,317 +710,255 @@
                         break;
                     case 'remove': if (itemIndex > -1) state.cart.splice(itemIndex, 1); break;
                     case 'clear': 
-                        // Only clear items belonging to the current active shop
                         const currentShopProducts = SHOPS_CONFIG[state.activeShop].products.map(p => p.id);
                         state.cart = state.cart.filter(item => !currentShopProducts.includes(item.id));
                         break;
                 }
                 saveState();
                 renderCart();
-                renderProducts(); // Re-render to update button states
+                renderProducts();
             };
 
             const handleFlyToCartAnimation = (button) => {
                 const productCard = button.closest('.product-card-base');
                 if (!productCard) return;
-
-                // Use the product icon if available, otherwise a generic emoji
                 const productIconElement = productCard.querySelector('.text-3xl');
                 const productIcon = productIconElement ? productIconElement.cloneNode(true) : document.createElement('span');
-                if (!productIconElement) { // If no specific icon, use a generic cart emoji
+                if (!productIconElement) {
                     productIcon.textContent = '🛒';
-                    productIcon.classList.add('text-3xl'); // Apply a size class
+                    productIcon.classList.add('text-3xl');
                 }
-
                 productIcon.classList.add('fly-to-cart');
                 document.body.appendChild(productIcon);
-
                 const startRect = button.getBoundingClientRect();
-                
-                let endTarget = null;
                 const isDesktop = window.innerWidth >= 1024;
-
-                if (isDesktop) {
-                    endTarget = document.querySelector('#quote-title-desktop i');
-                } else {
-                    endTarget = dom.mobileCartIcon;
-                }
-
-                if (!endTarget) {
-                    console.error("Cart icon not found for animation.");
-                    productIcon.remove();
-                    return;
-                }
-                
+                const endTarget = isDesktop ? document.querySelector('#quote-title-desktop i') : dom.mobileCartIcon;
+                if (!endTarget) { productIcon.remove(); return; }
                 const endRect = endTarget.getBoundingClientRect();
-                
                 productIcon.style.left = `${startRect.left + startRect.width / 2}px`;
                 productIcon.style.top = `${startRect.top + startRect.height / 2}px`;
-
                 requestAnimationFrame(() => {
                     productIcon.style.left = `${endRect.left + endRect.width / 2}px`;
                     productIcon.style.top = `${endRect.top + endRect.height / 2}px`;
                     productIcon.style.transform = 'scale(0.3)';
                     productIcon.style.opacity = '0';
                 });
-
                 setTimeout(() => {
                     productIcon.remove();
-                    
-                    const cartIconDesktop = document.querySelector('#quote-title-desktop i');
-                    const cartIconMobile = dom.mobileCartIcon;
-
-                    if (isDesktop && cartIconDesktop) {
-                        cartIconDesktop.parentElement.classList.add('cart-pulse');
-                    } else if (!isDesktop && cartIconMobile) {
-                        cartIconMobile.classList.add('cart-pulse');
+                    const cartIcon = isDesktop ? document.querySelector('#quote-title-desktop i') : dom.mobileCartIcon;
+                    if (cartIcon) {
+                        cartIcon.parentElement.classList.add('cart-pulse');
+                        setTimeout(() => cartIcon.parentElement.classList.remove('cart-pulse'), 500);
                     }
-                    
-                    setTimeout(() => {
-                        if (isDesktop && cartIconDesktop) cartIconDesktop.parentElement.classList.remove('cart-pulse');
-                        if (!isDesktop && cartIconMobile) cartIconMobile.classList.remove('cart-pulse');
-                    }, 500);
                 }, 600);
             };
 
-            const toggleModal = (show) => {
+            const toggleModal = (modal, content, show) => {
                 if (show) {
-                    dom.mobileCartModal.classList.remove('hidden');
+                    modal.classList.remove('hidden');
                     setTimeout(() => {
-                        dom.modalContent.classList.remove('modal-enter');
-                        dom.modalContent.classList.add('modal-enter-active');
+                        content.classList.remove('scale-95', 'opacity-0');
+                        content.classList.add('scale-100', 'opacity-100');
                     }, 10);
                 } else {
-                    dom.modalContent.classList.remove('modal-enter-active');
-                    dom.modalContent.classList.add('modal-leave-active');
-                    setTimeout(() => {
-                        dom.mobileCartModal.classList.add('hidden');
-                        dom.modalContent.classList.remove('modal-leave-active');
-                        dom.modalContent.classList.add('modal-enter');
-                    }, 300);
+                    content.classList.remove('scale-100', 'opacity-100');
+                    content.classList.add('scale-95', 'opacity-0');
+                    setTimeout(() => modal.classList.add('hidden'), 300);
                 }
             };
 
             const formatCurrency = (amount) => {
-                const formatter = new Intl.NumberFormat(state.lang === 'es' ? 'es-CO' : 'en-US', {
-                    style: 'currency',
-                    currency: state.currency,
+                return new Intl.NumberFormat(state.lang === 'es' ? 'es-CO' : 'en-US', {
+                    style: 'currency', currency: state.currency,
                     minimumFractionDigits: 0,
                     maximumFractionDigits: state.currency === 'COP' ? 0 : 2
-                });
-                return formatter.format(amount);
+                }).format(amount);
             };
 
             const generateWhatsAppMessage = () => {
                 const currentShop = SHOPS_CONFIG[state.activeShop];
                 const t = currentShop.translations[state.lang];
-                // Use whatsappMessageTitle if available, otherwise fallback
                 let messageTitle = t.whatsappMessageTitle || `${t.mainTitle} - ${t.quoteTitleDesktop.replace(/<[^>]*>/g, '').trim()}`;
                 let message = `${messageTitle}\n\n`;
                 let subtotal = 0;
-
                 const activeShopProducts = currentShop.products;
-                const cartItemsForActiveShop = state.cart.filter(cartItem => 
-                    activeShopProducts.some(product => product.id === cartItem.id)
-                );
-
+                const cartItemsForActiveShop = state.cart.filter(cartItem => activeShopProducts.some(p => p.id === cartItem.id));
                 cartItemsForActiveShop.forEach(item => {
                     const product = activeShopProducts.find(p => p.id === item.id);
                     const itemPrice = product.price * exchangeRates[state.currency];
                     subtotal += itemPrice * item.quantity;
                     message += `${item.quantity} x ${product.name} - ${formatCurrency(itemPrice)} c/u\n`;
                 });
-
                 const iva = subtotal * 0.19;
                 const total = subtotal + iva;
-
                 message += `\n${t.subtotal} ${formatCurrency(subtotal)}\n`;
                 message += `${t.iva} ${formatCurrency(iva)}\n`;
-                message += `${t.total} ${formatCurrency(total)}\n\n`;
-                message += `¡Gracias por tu compra!`;
-
+                message += `${t.total} ${formatCurrency(total)}\n\n¡Gracias por tu compra!`;
                 return encodeURIComponent(message);
             };
 
-            // Define DOM elements and populate initial select options
-            function defineDomAndTranslations() {
-                dom.mainBanner = document.getElementById('main-banner');
-                dom.bannerFadeOverlay = document.getElementById('banner-fade-overlay'); // New DOM reference
-                dom.bannerTitle = document.getElementById('banner-title');
-                dom.mainTitle = document.getElementById('main-title');
-                dom.mainSubtitle = document.getElementById('main-subtitle');
-                dom.searchInput = document.getElementById('search-input');
-                dom.shopSwitcher = document.getElementById('shop-switcher');
-                dom.languageSwitcher = document.getElementById('language-switcher');
-                dom.currencySwitcher = document.getElementById('currency-switcher');
-                dom.darkModeToggle = document.getElementById('dark-mode-toggle');
-                dom.categoryFilters = document.getElementById('category-filters');
-                dom.scrollLeftBtn = document.getElementById('scroll-left-btn'); // New DOM reference
-                dom.scrollRightBtn = document.getElementById('scroll-right-btn'); // New DOM reference
-                dom.productsTitle = document.getElementById('products-title');
-                dom.productList = document.getElementById('product-list');
-                dom.quoteTitleDesktop = document.getElementById('quote-title-desktop');
-                dom.cartItemsDesktop = document.getElementById('cart-items-desktop');
-                dom.cartTotalsDesktop = document.getElementById('cart-totals-desktop');
-                dom.cartButtonsDesktop = document.getElementById('cart-buttons-desktop');
-                dom.mobileCartBar = document.getElementById('mobile-cart-bar');
-                dom.mobileTotalLabel = document.getElementById('mobile-total-label');
-                dom.mobileTotalAmount = document.getElementById('mobile-total-amount');
-                dom.viewCartBtn = document.getElementById('view-cart-btn');
-                dom.mobileCartIcon = document.getElementById('mobile-cart-icon');
-                dom.viewCartLabel = document.getElementById('view-cart-label');
-                dom.mobileCartModal = document.getElementById('mobile-cart-modal');
-                dom.modalContent = document.getElementById('modal-content');
-                dom.quoteTitleMobile = document.getElementById('quote-title-mobile');
-                dom.closeModalBtn = document.getElementById('close-modal-btn');
-                dom.cartItemsMobile = document.getElementById('cart-items-mobile');
-                dom.cartTotalsMobile = document.getElementById('cart-totals-mobile');
-                dom.cartButtonsMobile = document.getElementById('cart-buttons-mobile');
-
-                populateLanguageSwitcher();
-                populateCurrencySwitcher();
-            }
-
-            function populateLanguageSwitcher() {
-                dom.languageSwitcher.innerHTML = `
-                    <option value="es">Español</option>
-                    <option value="en">English</option>
-                `;
-            }
-
-            function populateCurrencySwitcher() {
-                dom.currencySwitcher.innerHTML = `
-                    <option value="COP">COP</option>
-                    <option value="USD">USD</option>
-                    <option value="EUR">EUR</option>
-                `;
-            }
-
-            // Function to start banner image rotation
-            const startBannerRotation = () => {
-                // Clear any existing interval to prevent multiple rotations
-                if (bannerInterval) {
-                    clearInterval(bannerInterval);
-                }
-
+            // --- GEMINI API FUNCTION ---
+            const handleGenerateRecipe = async () => {
                 const currentShop = SHOPS_CONFIG[state.activeShop];
-                const bannerImages = currentShop.bannerImages;
+                const t = currentShop.translations[state.lang];
 
-                if (bannerImages && bannerImages.length > 1) {
-                    // Set initial banner image
-                    dom.mainBanner.style.backgroundImage = `url('${bannerImages[state.currentBannerIndex]}')`;
-                    dom.bannerFadeOverlay.classList.remove('opacity-40'); // Ensure it's transparent initially
-                    dom.bannerFadeOverlay.classList.add('opacity-0');
+                toggleModal(dom.recipeModal, dom.recipeModalContent, true);
+                dom.recipeModalTitle.textContent = t.generatingRecipe;
+                dom.recipeModalBody.innerHTML = `<div class="flex justify-center items-center p-8"><div class="spinner"></div></div>`;
+                
+                const activeShopProducts = currentShop.products;
+                const ingredients = state.cart
+                    .filter(cartItem => activeShopProducts.some(p => p.id === cartItem.id))
+                    .map(item => activeShopProducts.find(p => p.id === item.id).name)
+                    .join(', ');
 
-                    bannerInterval = setInterval(() => {
-                        // Fade out current image
-                        dom.bannerFadeOverlay.classList.remove('opacity-0');
-                        dom.bannerFadeOverlay.classList.add('opacity-40'); // Match the existing dark overlay opacity
+                const prompt = state.activeShop === 'butcherShop'
+                    ? `Eres un chef experto en carnes. Crea una sugerencia de preparación o receta para los siguientes productos: ${ingredients}. Describe el plato, los ingredientes adicionales que se necesitarían y los pasos para prepararlo. Responde en español.`
+                    : `Eres un chef experto. Crea una receta deliciosa y fácil de seguir usando los siguientes ingredientes: ${ingredients}. Proporciona el nombre de la receta, los ingredientes (incluyendo cantidades si es posible), y las instrucciones paso a paso. Formatea la respuesta con títulos para 'Ingredientes' e 'Instrucciones'. Responde en español.`;
 
-                        setTimeout(() => {
-                            // Change image after fade out is complete
-                            state.currentBannerIndex = (state.currentBannerIndex + 1) % bannerImages.length;
-                            dom.mainBanner.style.backgroundImage = `url('${bannerImages[state.currentBannerIndex]}')`;
+                try {
+                    let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // API key will be injected by the environment
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                    
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
 
-                            // Fade in new image
-                            dom.bannerFadeOverlay.classList.remove('opacity-40');
-                            dom.bannerFadeOverlay.classList.add('opacity-0');
-                        }, 1000); // This timeout should match the CSS transition duration for opacity
-                    }, 5000); // Change banner every 5 seconds (1s fade + 4s display)
-                } else {
-                    // If only one image or no images, just set it and don't rotate
-                    dom.mainBanner.style.backgroundImage = `url('${currentShop.banner}')`; // Fallback to single banner
-                    dom.bannerFadeOverlay.classList.remove('opacity-40'); // Ensure overlay is hidden
-                    dom.bannerFadeOverlay.classList.add('opacity-0');
+                    if (!response.ok) {
+                        throw new Error(`API request failed with status ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    dom.recipeModalTitle.textContent = t.recipeModalTitle;
+                    if (result.candidates && result.candidates.length > 0 && result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        // Basic formatting for the recipe text
+                        const formattedText = text
+                            .replace(/(\*\*|__)(.*?)\1/g, '<strong>$2</strong>') // Bold
+                            .replace(/\*(.*?)\*/g, '<em>$1</em>') // Italics
+                            .replace(/^### (.*$)/gim, '<h3>$1</h3>') // H3
+                            .replace(/^## (.*$)/gim, '<h2>$1</h2>') // H2
+                            .replace(/^# (.*$)/gim, '<h1>$1</h1>') // H1
+                            .replace(/^\* (.*$)/gim, '<li>$1</li>') // List items
+                            .replace(/\n/g, '<br>');
+                        dom.recipeModalBody.innerHTML = `<div class="prose prose-slate dark:prose-invert max-w-none">${formattedText}</div>`;
+                    } else {
+                        throw new Error("No content received from API.");
+                    }
+                } catch (error) {
+                    console.error("Error generating recipe:", error);
+                    dom.recipeModalTitle.textContent = "Error";
+                    dom.recipeModalBody.innerHTML = `<p class="text-red-500">${t.recipeError}</p>`;
                 }
             };
 
-            // --- EVENT LISTENERS SETUP ---
+            function defineDomElements() {
+                const ids = [
+                    'main-banner', 'banner-fade-overlay', 'banner-title', 'main-title', 'main-subtitle', 
+                    'search-input', 'shop-switcher', 'language-switcher', 'currency-switcher', 
+                    'dark-mode-toggle', 'category-filters', 'scroll-left-btn', 'scroll-right-btn', 
+                    'products-title', 'product-list', 'quote-title-desktop', 'cart-items-desktop', 
+                    'cart-totals-desktop', 'cart-buttons-desktop', 'mobile-cart-bar', 
+                    'mobile-total-label', 'mobile-total-amount', 'view-cart-btn', 'mobile-cart-icon', 
+                    'view-cart-label', 'mobile-cart-modal', 'modal-content', 'quote-title-mobile', 
+                    'close-modal-btn', 'cart-items-mobile', 'cart-totals-mobile', 'cart-buttons-mobile',
+                    'recipe-modal', 'recipe-modal-content', 'recipe-modal-title', 'recipe-modal-body',
+                    'close-recipe-modal-btn'
+                ];
+                ids.forEach(id => dom[id.replace(/-(\w)/g, (m, p1) => p1.toUpperCase())] = document.getElementById(id));
+            }
+
+            function populateLanguageSwitcher() {
+                dom.languageSwitcher.innerHTML = `<option value="es">Español</option><option value="en">English</option>`;
+            }
+
+            function populateCurrencySwitcher() {
+                dom.currencySwitcher.innerHTML = `<option value="COP">COP</option><option value="USD">USD</option><option value="EUR">EUR</option>`;
+            }
+
+            const startBannerRotation = () => {
+                if (bannerInterval) clearInterval(bannerInterval);
+                const currentShop = SHOPS_CONFIG[state.activeShop];
+                const bannerImages = currentShop.bannerImages;
+                if (!bannerImages || bannerImages.length <= 1) {
+                    dom.mainBanner.style.backgroundImage = `url('${currentShop.banner}')`;
+                    dom.bannerFadeOverlay.classList.add('opacity-0');
+                    return;
+                }
+                dom.mainBanner.style.backgroundImage = `url('${bannerImages[state.currentBannerIndex]}')`;
+                dom.bannerFadeOverlay.classList.add('opacity-0');
+                bannerInterval = setInterval(() => {
+                    dom.bannerFadeOverlay.classList.remove('opacity-0');
+                    dom.bannerFadeOverlay.classList.add('opacity-40');
+                    setTimeout(() => {
+                        state.currentBannerIndex = (state.currentBannerIndex + 1) % bannerImages.length;
+                        dom.mainBanner.style.backgroundImage = `url('${bannerImages[state.currentBannerIndex]}')`;
+                        dom.bannerFadeOverlay.classList.remove('opacity-40');
+                        dom.bannerFadeOverlay.classList.add('opacity-0');
+                    }, 1000);
+                }, 5000);
+            };
+
             function setupEventListeners() {
                 document.body.addEventListener('click', (e) => {
                     const button = e.target.closest('button');
                     if (!button) return;
                     const id = parseInt(button.dataset.id);
-                    const category = button.dataset.category;
-                    const shopId = button.dataset.shop;
 
-                    if (button.classList.contains('add-to-cart-btn')) {
-                        handleCartAction('add', id);
-                        handleFlyToCartAnimation(button);
-                    } else if (button.classList.contains('increase-quantity-btn')) {
-                        handleCartAction('increase', id);
-                    } else if (button.classList.contains('decrease-quantity-btn')) {
-                        handleCartAction('decrease', id);
-                    } else if (button.classList.contains('remove-item-btn')) {
-                        handleCartAction('remove', id);
-                    } else if (button.id === 'clear-cart-btn') {
-                        handleCartAction('clear');
-                    } else if (button.id === 'whatsapp-btn') {
+                    if (button.classList.contains('add-to-cart-btn')) handleCartAction('add', id);
+                    else if (button.classList.contains('increase-quantity-btn')) handleCartAction('increase', id);
+                    else if (button.classList.contains('decrease-quantity-btn')) handleCartAction('decrease', id);
+                    else if (button.classList.contains('remove-item-btn')) handleCartAction('remove', id);
+                    else if (button.id === 'clear-cart-btn') handleCartAction('clear');
+                    else if (button.id === 'whatsapp-btn') {
                         const message = generateWhatsAppMessage();
                         const phoneNumber = '573006101221';
                         window.open(`https://api.whatsapp.com/send?phone=${phoneNumber}&text=${message}`, '_blank');
-                    } else if (button.id === 'dark-mode-toggle') {
+                    }
+                    else if (button.id === 'dark-mode-toggle') {
                         state.darkMode = !state.darkMode;
                         document.documentElement.classList.toggle('dark', state.darkMode);
                         saveState();
                         updateDarkModeToggle();
-                    } else if (button.classList.contains('category-card-base')) { // Use the new class name
-                        state.activeCategory = category;
+                    } else if (button.dataset.category) {
+                        state.activeCategory = button.dataset.category;
                         saveState();
                         renderProducts();
                         renderCategoryFilters();
-                    } else if (button.classList.contains('shop-btn')) {
-                        state.activeShop = shopId;
-                        state.activeCategory = 'all'; // Reset category when switching shops
-                        state.searchQuery = ''; // Clear search when switching shops
-                        dom.searchInput.value = ''; // Clear search input field
+                    } else if (button.dataset.shop) {
+                        state.activeShop = button.dataset.shop;
+                        state.activeCategory = 'all';
+                        state.searchQuery = '';
+                        dom.searchInput.value = '';
                         saveState();
-                        updateUI(); // Re-render UI and restart banner for new shop
+                        updateUI();
                     } else if (button.id === 'view-cart-btn') {
-                        toggleModal(true);
+                        toggleModal(dom.mobileCartModal, dom.modalContent, true);
                     } else if (button.id === 'close-modal-btn') {
-                        toggleModal(false);
-                    } else if (button.id === 'scroll-left-btn') { // Handle scroll buttons
-                        dom.categoryFilters.scrollBy({ left: -200, behavior: 'smooth' }); // Scroll left by 200px
-                    } else if (button.id === 'scroll-right-btn') { // Handle scroll buttons
-                        dom.categoryFilters.scrollBy({ left: 200, behavior: 'smooth' }); // Scroll right by 200px
+                        toggleModal(dom.mobileCartModal, dom.modalContent, false);
+                    } else if (button.id === 'scroll-left-btn') {
+                        dom.categoryFilters.scrollBy({ left: -200, behavior: 'smooth' });
+                    } else if (button.id === 'scroll-right-btn') {
+                        dom.categoryFilters.scrollBy({ left: 200, behavior: 'smooth' });
+                    } else if (button.id === 'generate-recipe-btn') {
+                        handleGenerateRecipe();
+                    } else if (button.id === 'close-recipe-modal-btn') {
+                        toggleModal(dom.recipeModal, dom.recipeModalContent, false);
                     }
                 });
 
-                dom.languageSwitcher.addEventListener('change', (e) => {
-                    state.lang = e.target.value;
-                    saveState();
-                    updateUI();
-                });
-
-                dom.currencySwitcher.addEventListener('change', (e) => {
-                    state.currency = e.target.value;
-                    saveState();
-                    updateUI();
-                });
-
-                dom.searchInput.addEventListener('input', (e) => {
-                    state.searchQuery = e.target.value;
-                    renderProducts();
-                });
-
-                // Keyboard navigation for category filters (for desktop accessibility)
-                document.addEventListener('keydown', (e) => {
-                    if (dom.categoryFilters) {
-                        const scrollAmount = 150; // Adjust scroll distance as needed
-                        if (e.key === 'ArrowLeft') {
-                            dom.categoryFilters.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-                        } else if (e.key === 'ArrowRight') {
-                            dom.categoryFilters.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-                        }
-                    }
-                });
+                dom.languageSwitcher.addEventListener('change', (e) => { state.lang = e.target.value; saveState(); updateUI(); });
+                dom.currencySwitcher.addEventListener('change', (e) => { state.currency = e.target.value; saveState(); updateUI(); });
+                dom.searchInput.addEventListener('input', (e) => { state.searchQuery = e.target.value; renderProducts(); });
             }
 
-            // --- INITIALIZE THE APPLICATION ---
             init();
         });
     </script>
 </body>
 </html>
-�
